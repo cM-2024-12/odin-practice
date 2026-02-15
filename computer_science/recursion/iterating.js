@@ -1,41 +1,48 @@
-const contains = function(object, value) {
-    for (let key in object) {
-        if (Object.is(object[key],value)) {
-            return true;  // Found it
-        }
-        if (typeof object[key] === ('object') && object[key] !== null) {
-            if (contains(object[key], value)) {  // Recurse
-                return true;
-            }
-        }
+// Write a function that takes in an arbitrarily 
+//deep array or object and returns the total number of integers stored inside this array or object.
+
+// ```javascript
+// totalIntegers([[[5], 3], 0, 2, ['foo'], [], [4, [5, 6]]]); // returns 7
+// totalIntegers({ a: 1, b: { a: [5, 10], b: 11 } }); // returns 4
+// ```
+
+// retrieve array or object 
+
+// count # of integers 
+
+const test = [
+  [[5], 3], 
+  0, 
+  2, 
+  ['foo'], 
+  [], 
+  [4, 
+  [5, 6]]]
+
+const obj = { a: 1, b: 
+  { a: [5, 10], b: 11 } }
+
+const totalIntegers = function(input) {
+  let integerCount = 0
+  // focus on object first,then array next - same shit 
+  for (let key in input) {
+    // check if object has a value
+    if (input[key] != null) {
+      // if value is a number, increment by one
+      if (typeof(input[key])=='number'){
+        console.log('initialCount', integerCount)
+        console.log(key, input[key])
+        integerCount += 1 
+      }
+      // if value not a number, repeat above
+      else if (typeof(input[key])=='object'){
+        integerCount += totalIntegers(input[key]) // retrieve the return 
+      }
     }
-    return false;  // Not found
-};
-
-const meaningOfLifeArray = [42];
-const object = {
-  data: {
-    duplicate: "e",
-    stuff: {
-      thing: {
-        banana: NaN,
-        moreStuff: {
-          something: "foo",
-          answer: meaningOfLifeArray,
-        },
-      },
-    },
-    info: {
-      duplicate: "e",
-      magicNumber: 44,
-      empty: null,
-    },
-  },
-};
-
-// console.log('key', typeof(Object.keys(object.data.stuff.thing)
-for (const [key, value] of Object.entries(object)) {
-  console.log(`${key}: ${JSON.stringify(value)}`)
+  }
+  return integerCount
+  // console.log(integerCount)
+  // return integerCount
 }
 
-console.log(object.data.stuff.thing.banana)
+console.log(totalIntegers(test))
