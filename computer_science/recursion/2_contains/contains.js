@@ -1,6 +1,7 @@
 contains = function(object, value) {
     for (let key in object) {
-        if (object[key] === value) {
+        // retreive value from key, compare against value
+        if (Object.is(object[key],value)) {
             return true;  // Found it
         }
         if (typeof object[key] === 'object' && object[key] !== null) {

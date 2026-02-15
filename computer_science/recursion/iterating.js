@@ -1,9 +1,9 @@
 const contains = function(object, value) {
     for (let key in object) {
-        if (object[key] === value) {
+        if (Object.is(object[key],value)) {
             return true;  // Found it
         }
-        if (typeof object[key] === 'object' && object[key] !== null) {
+        if (typeof object[key] === ('object') && object[key] !== null) {
             if (contains(object[key], value)) {  // Recurse
                 return true;
             }
@@ -33,5 +33,9 @@ const object = {
   },
 };
 
+// console.log('key', typeof(Object.keys(object.data.stuff.thing)
+for (const [key, value] of Object.entries(object)) {
+  console.log(`${key}: ${JSON.stringify(value)}`)
+}
 
-console.log(contains(object, "foo"))
+console.log(object.data.stuff.thing.banana)
